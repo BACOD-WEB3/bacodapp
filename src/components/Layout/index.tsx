@@ -27,10 +27,10 @@ function Layout({ children, rightMenu, sideBar = true }: TLayout) {
   // leftMenu
   // rightMenu
   return (
-    <div className='flex h-full w-full flex-col justify-center  '>
+    <div className='flex h-full w-full flex-col justify-center  px-2 '>
       <Navbar />
       {sideBar && (
-        <div className='grid h-[93vh] w-full max-w-screen-xl grid-cols-9 self-center  '>
+        <div className='grid h-[93vh] w-full max-w-screen-xl grid-cols-9 self-center '>
           <div className='col-span-2 '>
             <LeftMenu />
           </div>

@@ -1,77 +1,77 @@
-// /// app.js
-// import React from 'react';
-// import DeckGL from '@deck.gl/react';
-// import { LineLayer } from '@deck.gl/layers';
-// import { Map } from 'react-map-gl';
-// import 'mapbox-gl/dist/mapbox-gl.css';
+import React from 'react';
+import { StaticMap, MapContext, NavigationControl } from 'react-map-gl';
+import DeckGL, { GeoJsonLayer, ArcLayer } from 'deck.gl';
 
-// const MAPBOX_ACCESS_TOKEN =
-//   'pk.eyJ1IjoiZGVsbHdhdHNvbiIsImEiOiJjbGE1cnQyNnAwcXNyM3hybmFxMzFjNG04In0.TLc38l7eHQMRBVLFWoTSNw';
-// // Viewport settings
-// const INITIAL_VIEW_STATE = {
-//   longitude: -122.41669,
-//   latitude: 37.7853,
-//   zoom: 13,
-//   pitch: 0,
-//   bearing: 0,
-// };
+// source: Natural Earth http://www.naturalearthdata.com/ via geojson.xyz
+const AIR_PORTS =
+  'https://d2ad6b4ur7yvpq.cloudfront.net/naturalearth-3.3.0/ne_10m_airports.geojson';
 
-// // Data to be used by the LineLayer
-// const data = [
-//   {
-//     sourcePosition: [-122.41669, 37.7853],
-//     targetPosition: [-122.41669, 37.781],
-//   },
-// ];
+const INITIAL_VIEW_STATE = {
+  latitude: 51.47,
+  longitude: 0.45,
+  zoom: 4,
+  bearing: 0,
+  pitch: 30,
+};
 
-// // DeckGL react component
-// export default function MapWar() {
-//   const layers = [new LineLayer({ id: 'line-layer', data })];
+const MAP_STYLE =
+  'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json';
+const NAV_CONTROL_STYLE = {
+  position: 'absolute',
+  top: 10,
+  left: 10,
+};
 
-//   return (
-//     <div className='z-20 h-[500px] w-[500px] border bg-gray-100'>
-//       <DeckGL initialViewState={INITIAL_VIEW_STATE} controller={true}>
-//         <LineLayer id='line-layer' data={data} />
-//       </DeckGL>
-//     </div>
-//   );
-// }
-import { useState } from 'react';
-import ReactMapGL, { Marker } from 'react-map-gl';
-import 'mapbox-gl/dist/mapbox-gl.css';
+export default function MapWar() {
+  const onClick = (info) => {
+    if (info.object) {
+      // eslint-disable-next-line
+      alert(
+        `${info.object.properties.name} (${info.object.properties.abbrev})`
+      );
+    }
+  };
 
-export default function Map({ locations }) {
-  const [viewport, setViewport] = useState({
-    width: '100%',
-    height: '100%',
-    // The latitude and longitude of the center of London
-    latitude: 51.5074,
-    longitude: -0.1278,
-    zoom: 10,
-  });
+  const layers = [
+    new GeoJsonLayer({
+      id: 'airports',
+      data: AIR_PORTS,
+      // Styles
+      filled: true,
+      pointRadiusMinPixels: 2,
+      pointRadiusScale: 2000,
+      getPointRadius: (f) => 11 - f.properties.scalerank,
+      getFillColor: [200, 0, 80, 180],
+      // Interactive props
+      pickable: true,
+      autoHighlight: true,
+      onClick,
+    }),
+    new ArcLayer({
+      id: 'arcs',
+      data: AIR_PORTS,
+      dataTransform: (d) =>
+        d.features.filter((f) => f.properties.scalerank < 4),
+      // Styles
+      getSourcePosition: (f) => [-0.4531566, 51.4709959], // London
+      getTargetPosition: (f) => f.geometry.coordinates,
+      getSourceColor: [0, 128, 200],
+      getTargetColor: [200, 0, 80],
+      getWidth: 1,
+    }),
+  ];
+
   return (
-    <div className='h-screen border'>
-      <ReactMapGL
-        mapStyle='mapbox://styles/mapbox/streets-v11'
-        mapboxApiAccessToken='pk.eyJ1IjoiZGVsbHdhdHNvbiIsImEiOiJjbGE1cnp3MnkweTAxM29vN3gzcTEzeW4wIn0.0uy7zo75ONRXeR2Yb5jsUA'
-        {...viewport}
-        // onViewportChange={(nextViewport) => setViewport(nextViewport)}
-      >
-        {locations?.map((location) => (
-          <div key={location.id}>
-            <Marker
-              latitude={location.center[1]}
-              longitude={location.center[0]}
-              offsetLeft={-20}
-              offsetTop={-10}
-            >
-              <span role='img' aria-label='push-pin'>
-                📌
-              </span>
-            </Marker>
-          </div>
-        ))}
-      </ReactMapGL>
-    </div>
+    <DeckGL
+      initialViewState={INITIAL_VIEW_STATE}
+      controller={true}
+      layers={layers}
+      ContextProvider={MapContext.Provider}
+    >
+      <StaticMap mapStyle={MAP_STYLE} />
+      {/* <NavigationControl style={NAV_CONTROL_STYLE} /> */}
+    </DeckGL>
   );
 }
+
+/* global document */
