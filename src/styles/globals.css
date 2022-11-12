@@ -25,6 +25,22 @@ a {
   }
   body {
     color: white;
-    background: black;
+    background: #111729;
+    /* 151B2D */
   }
+}
+
+.ts-m {
+  text-shadow: 0 0 20px rgba(192, 219, 255, 0.48),
+    0 0 10px rgba(206, 208, 215, 0.24);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }

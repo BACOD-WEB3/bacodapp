@@ -1,10 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 
 module.exports = {
-  purge: ["./src/pages/**/*", "./src/components/**/*"],
-  content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  purge: ['./src/pages/**/*', './src/components/**/*'],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        bg_secondary: '#151B2D',
+        bg_third: '#20293A',
+      },
+    },
   },
   plugins: [],
 };
