@@ -17,19 +17,38 @@ import { useRouter } from 'next/router';
 
 type TLayout = {
   rightMenu?: any;
-  children: any;
-  sideBar: boolean;
+  children?: any;
+  sideBar?: boolean;
+  fullMode?: boolean;
 };
 // sticky
-function Layout({ children, rightMenu, sideBar = true }: TLayout) {
+function Layout({
+  children,
+  rightMenu,
+  sideBar = true,
+  fullMode = false,
+}: TLayout) {
   // isSideSpace
   // hasMenuLeft
   // leftMenu
   // rightMenu
   return (
-    <div className='flex h-full w-full flex-col justify-center  '>
+    <div className='absolute z-10  flex h-full w-full flex-col justify-center  '>
       <Navbar />
-      {sideBar && (
+      {fullMode && (
+        <div className='grid h-[93vh] w-full max-w-screen-xl grid-cols-9 self-center  '>
+          <div className='col-span-2 '>
+            <LeftMenu />
+          </div>
+          <div className='no-scrollbar col-span-7 scroll-p-0 overflow-scroll md:col-span-4'>
+            {/* <div className='overflow-scroll  md:hidden '>{rightMenu}</div> */}
+          </div>
+          <div className='col-span-3 hidden overflow-scroll pl-4 md:block'>
+            {rightMenu}
+          </div>
+        </div>
+      )}
+      {sideBar && !fullMode && (
         <div className='grid h-[93vh] w-full max-w-screen-xl grid-cols-9 self-center  '>
           <div className='col-span-2 '>
             <LeftMenu />
@@ -43,12 +62,11 @@ function Layout({ children, rightMenu, sideBar = true }: TLayout) {
           </div>
         </div>
       )}
-      {!sideBar && (
+      {!sideBar && !fullMode && (
         <div className='h-full w-full max-w-screen-xl self-center border backdrop-blur-md  '>
           {children}
         </div>
       )}
-      {/* <Footer /> */}
     </div>
   );
 }
@@ -71,7 +89,7 @@ const LeftMenu = () => {
           onClick={() => route.push('/war')}
           className='w-full bg-rose-900 py-3'
         >
-          WAR
+          BATTLE - WAR
         </Button>
         {/* COUNT DOWN */}
       </div>
