@@ -1,14 +1,22 @@
-// no max length
-// mapbox
+import React from 'react';
+// import {render} from 'react-dom';
+import dynamic from 'next/dynamic';
 import Layout from '@/components/Layout';
-import Head from 'next/head';
-import Image from 'next/image';
+import MapWar from '@/components/Map';
+// const MapWar = dynamic(() => import('../components/Map'), {
+//   suspense: true,
+// });
 
 export default function War() {
   return (
-    <Layout>
-      <div style={{ width: 300, height: 300, background: 'red' }} />
-      war
-    </Layout>
+    <div>
+      <MapWar />
+
+      <Layout>
+        <div>under development</div>
+      </Layout>
+    </div>
   );
 }
+
+/* global document */

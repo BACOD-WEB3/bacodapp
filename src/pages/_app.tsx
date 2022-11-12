@@ -5,6 +5,7 @@ import { ThemeProvider } from 'next-themes';
 import ProgressBar from '@badrap/bar-of-progress';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
+import 'mapbox-gl/dist/mapbox-gl.css';
 
 const progress = new ProgressBar({
   size: 1,
