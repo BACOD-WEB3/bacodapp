@@ -15,7 +15,7 @@ const INITIAL_VIEW_STATE = {
 };
 
 const MAP_STYLE =
-  'https://basemaps.cartocdn.com/gl/positron-nolabels-gl-style/style.json';
+  'https://basemaps.cartocdn.com/gl/dark-matter-gl-style/style.json';
 const NAV_CONTROL_STYLE = {
   position: 'absolute',
   top: 10,

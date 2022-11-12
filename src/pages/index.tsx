@@ -29,7 +29,7 @@ export default function Home() {
       <div className='z-20 flex flex-col self-center align-middle '>
         <span className='ts-m text-center text-6xl font-bold text-cyan-500'>
           ShuoCIAL NFT
-          <br />- 1st PHASE -
+          <br />- 1st PHASE : SELECTION -
         </span>
         <br />
         <br />
