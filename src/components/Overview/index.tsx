@@ -1,10 +1,26 @@
 import React from 'react';
 
 const OVERVIEW = [
-  { title: 'EARNING', value: 9000, bg: 'bg-green-400' },
-  { title: 'TRX', value: 9000, bg: 'bg-red-600' },
-  { title: 'TUSD', value: 9000, bg: 'bg-cyan-400' },
-  { title: 'POINTS', value: 9000, bg: 'bg-orange-400' },
+  {
+    title: 'EARNING',
+    value: 9000,
+    bg: 'bg-gradient-to-r from-green-500 to-blue-300',
+  },
+  {
+    title: 'TRX',
+    value: 9000,
+    bg: 'bg-gradient-to-r from-red-600 to-pink-500',
+  },
+  {
+    title: 'TUSD',
+    value: 9000,
+    bg: 'bg-gradient-to-r from-cyan-500 to-blue-500',
+  },
+  {
+    title: 'POINTS',
+    value: 9000,
+    bg: 'bg-gradient-to-r from-purple-500 to-beige-500',
+  },
 ];
 export default function Overview() {
   return (
