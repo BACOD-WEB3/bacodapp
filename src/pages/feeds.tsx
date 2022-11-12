@@ -76,14 +76,14 @@ export default function Feeds() {
   return (
     <Layout
       rightMenu={
-        <div className='p-4'>
+        <div className='pl-4'>
           <Search />
           <br />
           <Trends />
         </div>
       }
     >
-      <div className='p-2'>
+      <div className='px-2'>
         <CreatePost />
         <br />
         {MOCK_Post.map((post, i) => (

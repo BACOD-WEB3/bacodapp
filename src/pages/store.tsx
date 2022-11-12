@@ -32,7 +32,7 @@ const ListProducts = () => {
 
 const ProductItem = ({ item }) => {
   return (
-    <div className='col-span-1 m-1  rounded-md bg-red-400 p-5'>
+    <div className='col-span-1 m-1 mt-0 mb-2 rounded-md bg-red-400 p-5'>
       <div className='h-[300px]' />
       {item.title}
     </div>

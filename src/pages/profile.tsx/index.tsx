@@ -20,7 +20,7 @@ export default function Profile() {
   );
 }
 
-const HeaderProfile = () => {
+export const HeaderProfile = () => {
   return (
     <div className=''>
       <div className='h-[200px] bg-pink-300'>Profile Banner</div>

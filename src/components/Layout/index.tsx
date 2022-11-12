@@ -3,6 +3,17 @@ import React from 'react';
 import Button from '../Button';
 import Footer from './Footer';
 import Navbar from './Navbar';
+import {
+  MagnifyingGlassIcon,
+  HashtagIcon,
+  ChartBarSquareIcon,
+  ShoppingBagIcon,
+  ChatBubbleLeftEllipsisIcon,
+  BellAlertIcon,
+  UserGroupIcon,
+  EllipsisVerticalIcon,
+} from '@heroicons/react/24/outline';
+import { useRouter } from 'next/router';
 
 type TLayout = {
   rightMenu?: any;
@@ -27,7 +38,7 @@ function Layout({ children, rightMenu, sideBar = true }: TLayout) {
             <div className='overflow-scroll  md:hidden '>{rightMenu}</div>
             {children}
           </div>
-          <div className='col-span-3 hidden overflow-scroll p-4 md:block'>
+          <div className='col-span-3 hidden overflow-scroll pl-4 md:block'>
             {rightMenu}
           </div>
         </div>
@@ -48,6 +59,7 @@ const LeftMenu = () => {
   // can hide accordion
   // small on responsive
   // sticky button logout on bottom
+  const route = useRouter();
   return (
     <div className='flex h-full w-full flex-col justify-between pr-6'>
       <div>
@@ -55,7 +67,10 @@ const LeftMenu = () => {
           <ItemMenu key={i} {...{ item }} />
         ))}
         {/* BUTTON WAR */}
-        <Button onClick={() => null} className='w-full bg-rose-900 py-3'>
+        <Button
+          onClick={() => route.push('/war')}
+          className='w-full bg-rose-900 py-3'
+        >
           WAR
         </Button>
         {/* COUNT DOWN */}
@@ -87,16 +102,18 @@ const ItemMenu = ({ item }) => {
   if (item?.not_ready) {
     return (
       <div onClick={() => null} className='cursor-not-allowed  '>
-        <div className='mb-2 overflow-hidden rounded-md bg-bg_third p-6 text-gray-600'>
-          {item.title}
+        <div className='mb-2 flex overflow-hidden rounded-md bg-bg_third p-6 text-gray-600'>
+          <div>{item.icon}</div> &nbsp;
+          <div className='hidden md:block'>{item.title}</div>
         </div>
       </div>
     );
   }
   return (
     <Link href={item.path} className=''>
-      <div className='mb-2 overflow-hidden rounded-md bg-bg_third p-6 '>
-        {item.title}
+      <div className='mb-2 flex overflow-hidden rounded-md bg-bg_third p-6 '>
+        <div>{item.icon}</div> &nbsp;
+        <div className='hidden md:block'>{item.title}</div>
       </div>
     </Link>
   );
@@ -107,18 +124,20 @@ const LIST_MENU = [
     title: 'Feeds',
     path: '/feeds',
     t: '',
+    icon: <ChatBubbleLeftEllipsisIcon className='h-6 w-6' />,
   },
   {
     title: 'Store',
     path: '/store',
     t: '',
+    icon: <ShoppingBagIcon className='h-6 w-6' />,
   },
   {
     title: 'Explore',
     t: '',
     path: '#',
-
     not_ready: true,
+    icon: <HashtagIcon className='h-6 w-6' />,
   },
   {
     title: 'Leaderboard',
@@ -126,16 +145,19 @@ const LIST_MENU = [
     path: '#',
 
     not_ready: true,
+    icon: <ChartBarSquareIcon className='h-6 w-6' />,
   },
   {
     title: 'Notifications',
     path: '/notification',
     t: '',
+    icon: <BellAlertIcon className='h-6 w-6' />,
   },
   {
     title: 'Network',
     path: '/network',
     t: '',
+    icon: <UserGroupIcon className='h-6 w-6' />,
   },
   // {
   //   title: 'Profile',
@@ -147,5 +169,6 @@ const LIST_MENU = [
     t: '',
     path: '#',
     not_ready: true,
+    icon: <EllipsisVerticalIcon className='h-6 w-6' />,
   },
 ];

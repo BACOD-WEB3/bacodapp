@@ -4,24 +4,25 @@ import Button from '../Button';
 export default function CreatePost() {
   return (
     <div className=''>
-      <label
+      {/* <label
         htmlFor='about'
         className=' flex items-center justify-between text-sm font-medium text-gray-100'
       >
         CreatePost
         <span className='text-right text-xs text-gray-100'>
-          {/* {200 - bio.length} characters left */}
+          {200 - text.length} characters left
         </span>
-      </label>
-      <div className='mt-1'>
+      </label> */}
+      <div className='-1'>
         <textarea
           // onChange={(e) => setBio(e.target.value)}
           maxLength={200}
-          id='about'
-          name='about'
+          id='posting'
+          name='posting'
+          placeholder='Create post...'
           // disabled={saving}
           rows={4}
-          className='focus:border-brand-primary focus:ring-brand-primary block w-full rounded-md border-gray-300 bg-bg_third shadow-sm sm:text-sm'
+          className='focus:border-brand-primary focus:ring-brand-primary block w-full rounded-md border-gray-300 bg-bg_third p-2 shadow-sm sm:text-sm'
           // value={bio}
         />
       </div>
