@@ -1,6 +1,7 @@
 import Button from '@/components/Button';
 import Layout from '@/components/Layout';
 import Overview from '@/components/Overview';
+import { notify } from '@/components/Toast';
 import useContractX from '@/hooks/useContractX';
 import useTronContract, { getContractAddress } from '@/hooks/useTronContract';
 import { CONTRACTS_SETUP } from '@/utils/network_config';
@@ -105,8 +106,12 @@ const ProductItem = ({ item }) => {
       const tx2 = await callPurchaseX('purchaseProduct', [item?.id]);
       console.log(tx2, 'tx2 ?');
       setLoading(false);
+      notify('Please wait for VRF to generate your random giftcodes');
       toast.update(id, {
-        render: `Sucess minting profile, hash tx: ${tx2}`,
+        render: `Sucess minting profile, hash tx: ${tx2?.hash?.substring(
+          0,
+          10
+        )}... `,
         type: 'success',
         isLoading: false,
         autoClose: 5000,

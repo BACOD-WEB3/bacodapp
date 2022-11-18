@@ -52,8 +52,8 @@ export default function Home() {
       <div className='absolute h-screen w-screen  backdrop-blur-sm'></div>
       <div className='z-20 flex flex-col self-center align-middle '>
         <span className='ts-m text-center text-6xl font-bold text-cyan-300'>
-          ShuoCIAL NFT
-          <br />- 1st PHASE : SELECTION -
+          BACODApp
+          <br />- 1st CHAPTER : SELECTION -
         </span>
         <br />
         <br />

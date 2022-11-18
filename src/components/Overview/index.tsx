@@ -42,9 +42,9 @@ const OVERVIEW = [
     bg: 'bg-gradient-to-r from-pink-600 to-red-500',
   },
   {
-    title: 'SHUO-COIN',
+    title: 'BACO-COIN',
     value: '-',
-    symbol: 'SHUO',
+    symbol: 'BACO',
     icon: <div className='h-12 w-12 rounded-full border bg-red-900' />,
 
     bg: 'bg-gradient-to-r from-orange-500 to-sky-500',
@@ -74,7 +74,7 @@ export default function Overview() {
 
   const arrOverview = [
     totalEarning,
-    balance?.data?.formatted,
+    Number(balance?.data?.formatted).toFixed(4),
     overview?.usd,
     '-',
     overview?.points,

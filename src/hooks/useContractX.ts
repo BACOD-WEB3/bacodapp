@@ -7,8 +7,8 @@ import { useSwitchNetwork, useNetwork } from 'wagmi';
 export default function useContractX(contractType = '') {
   const [loading, setLoading] = useState(false);
   const contract = useDynamicContract(
-    CONTRACTS_SETUP[contractType].address,
-    CONTRACTS_SETUP[contractType].abi,
+    CONTRACTS_SETUP[contractType]?.address,
+    CONTRACTS_SETUP[contractType]?.abi,
     true,
     CONTRACTS_SETUP.rpc
   );
@@ -30,12 +30,7 @@ export default function useContractX(contractType = '') {
       });
 
       res = await tx.wait();
-      notifySuccess(
-        `Success transactioh, has tx: ${res?.transactionHash?.substring(
-          0,
-          10
-        )}...`
-      );
+      notifySuccess(`Success transaction...`);
       console.log(res);
       setLoading(false);
       return res;

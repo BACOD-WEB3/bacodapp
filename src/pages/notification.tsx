@@ -6,10 +6,8 @@ import Head from 'next/head';
 import Image from 'next/image';
 import { useContractEvent } from 'wagmi';
 
-const formatAddress = () => {};
-
 export default function Notification() {
-  // useTxEvents();
+  const { loading, allTx } = useTxEvents();
 
   useContractEvent({
     address: CONTRACTS_SETUP.store.address,
@@ -28,17 +26,16 @@ export default function Notification() {
         </div>
       }
     >
-      {/* {loading && <div className='text-orange-600'>Loading...</div>}
+      {loading && <div className='text-orange-600'>Loading...</div>}
       {allTx.map((item, i) => (
-        <div key={i} className='m-2 rounded-md border p-4'>
-          Receive{' '}
-          <b className='text-green-400'>
-            {Number(item?.result?.amount) / 1000000000000000000} TUSD
-          </b>{' '}
-          from{' '}
-          {tronWeb?.address?.fromHex(`0x${item?.result?.from?.substring(2)}`)}{' '}
+        <div
+          // onClick={() => }
+          key={i}
+          className='m-2 rounded-md border p-4'
+        >
+          {item?.description}
         </div>
-      ))} */}
+      ))}
     </Layout>
   );
 }

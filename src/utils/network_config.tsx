@@ -1,5 +1,7 @@
 export const TronWeb = require('tronweb');
 export const HttpProvider = TronWeb.providers.HttpProvider;
+import { ethers } from 'ethers';
+import { Alchemy, Network } from 'alchemy-sdk';
 
 import profileAbi from './abis/profileAbi.json';
 import storeAbi from './abis/storeAbi.json';
@@ -11,42 +13,47 @@ import pointsAbi from './abis/pointsAbi.json';
 import feedsAbi from './abis/feedsAbi.json';
 // evm
 export const CONTRACTS_SETUP = {
-  chainID: 1029,
-  rpc: 'https://pre-rpc.bt.io/',
-  networkName: 'BTT tesnet',
-  icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/16086.png',
-  network: 'BTT',
+  chainID: 80001,
+  rpc: 'https://matic-mumbai.chainstacklabs.com',
+  icon: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3890.png',
+  networkName: 'Mumbai',
+  network: 'MATIC',
   vendorAddress: '0xD1244aa84ad5188783721f2D142380F0F1e95088',
   profile: {
-    address: '0x49018e9a5b4127Ab30D404318e22700427f100bc',
+    address: '0x5d378E2B2274f9f1e53954e67Bfb76e756ed9da5',
     abi: profileAbi,
   },
   store: {
-    address: '0x4fda35CF2eccbe26033c4e2dD0D0cDD7B620c396',
+    address: '0x02DDe6B48a05bBB8035cc58f912a7334FEb67e8d',
     abi: storeAbi,
   },
   subscription: {
-    address: '0xC5884405F13537aD381838cbaf9e96a1989A87dB',
+    address: '0x9e9cbAd21DBDCEC93a7466B1Bc00b90d1d41CB5b',
     abi: subsAbi,
   },
   product: {
-    address: '0xf5E05A8832efd7f20aF3165A10613D37299AFDe2',
+    address: '0x9cb9eDfFE899105f30bBc85AB809787960a24748',
     abi: productAbi,
   },
   giftcode: {
-    address: '0xf5E05A8832efd7f20aF3165A10613D37299AFDe2',
+    address: '0x1328f326675a4d5f53d954023779F170EdCd6237',
     abi: giftcodeAbi,
   },
   fakeUSD: {
-    address: '0x4208D429D75712532dD514eA599996EAb6Fd0C2C',
+    address: '0xc55bd3489B3C7216D140810D2b9cd5bd1A7858De',
     abi: fakeUSDAbi,
   },
   points: {
-    address: '0xE5922D2623c35EDC4a8Dd2D8FCd77c60042FcfBd',
+    address: '0x3709120C8D1DFEEE9bF8290baa1EA84b2839540c',
     abi: pointsAbi,
   },
   feeds: {
-    address: '0x1623B5d823c050d1E0B29c549BACe8f0371e65F0',
+    address: '0x5A9e9520A0D4A6a17840f4953fe0a4D85A8EdeB0',
     abi: feedsAbi,
   },
 };
+
+export const alchemy = new Alchemy({
+  apiKey: process.env.NEXT_PUBLIC_ALCHEMY_KEY,
+  network: Network.MATIC_MUMBAI,
+});

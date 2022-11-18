@@ -21,7 +21,7 @@ export default function usePosition() {
   });
   useEffect(() => {
     if (!!address && !isError && data) {
-      console.log(data, 'data', data.length);
+      // console.log(data, 'data', data.length);
       setChildx(data);
       setChild(data);
     }

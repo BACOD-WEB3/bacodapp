@@ -15,7 +15,7 @@ export default function Navbar({ isFixed = false }) {
         isFixed && 'fixed'
       } z-30 flex w-full max-w-screen-xl justify-between self-center  bg-transparent py-4 `}
     >
-      <b className='ts-m text-red- text-lg'>ShuoCIAL</b>
+      <b className='ts-m text-red- text-lg'>BACODApp</b>
       <div className='flex justify-center align-middle text-sm'>
         <div
           className={`mr-3 h-3 w-3  rounded-full border ${
