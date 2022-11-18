@@ -9,6 +9,8 @@ import { v4 as uuidv4 } from 'uuid';
 import useTronContract from '@/hooks/useTronContract';
 import useGiftCodes, { useGC } from '@/hooks/useGiftCodes';
 import { useInfo } from '@/hooks/useOverview';
+import { useAccount, useContractRead } from 'wagmi';
+import { CONTRACTS_SETUP } from '@/utils/network_config';
 
 const OVERVIEW = [
   { title: 'EARNING', value: 9000, bg: 'red' },
@@ -27,9 +29,20 @@ const CopyWrapper = ({ children, value }) => (
   </CopyToClipboard>
 );
 export default function GiftCodes() {
-  const { profile_cache, tokenID } = useProfile();
+  // const { profile_cache, tokenID } = useProfile();
+  const { address } = useAccount();
+  const { data, isError, isLoading } = useContractRead({
+    address: CONTRACTS_SETUP['profile'].address,
+    abi: CONTRACTS_SETUP['profile'].abi,
+    functionName: 'tokenOfOwnerByIndex',
+    args: [address, 0],
+    chainId: CONTRACTS_SETUP.chainID,
+  });
 
-  const VOUCHER = `${makeid(2)}-${makeid(2)}x${tokenID}`.toUpperCase();
+  const VOUCHER =
+    isLoading && !data
+      ? `Loading...`
+      : `${makeid(2)}-${makeid(2)}x${data}`.toUpperCase();
   const { overview } = useInfo();
   useGiftCodes();
 

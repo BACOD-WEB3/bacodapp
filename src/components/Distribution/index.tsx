@@ -1,5 +1,5 @@
 import useFullMode from '@/hooks/useFullMode';
-import usePosition from '@/hooks/usePosition';
+import usePosition, { useZustandPostion } from '@/hooks/usePosition';
 import React from 'react';
 import Button from '../Button';
 
@@ -58,7 +58,7 @@ export default function Distribution({ isGraph = true }) {
 
 const LevelItem = (item) => {
   const { loading, child } = usePosition();
-
+  const { levels } = useZustandPostion();
   return (
     <div
       className={`mb-2 flex justify-between rounded-md align-middle  ${item.bg} p-4`}
@@ -72,7 +72,7 @@ const LevelItem = (item) => {
         <div>Loading...</div>
       ) : (
         <div className='text-right'>
-          - USD <br /> {item?.index === 0 && child?.length} people
+          - USD <br /> {!!levels?.length && levels[item?.index]} people
         </div>
       )}
     </div>
