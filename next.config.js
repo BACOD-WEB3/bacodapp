@@ -1,5 +1,5 @@
 const withTM = require('next-transpile-modules')(['@deck.gl/core']);
-module.exports = withTM({
+module.exports = {
   reactStrictMode: false,
 
   typescript: {
@@ -8,4 +8,4 @@ module.exports = withTM({
   eslint: {
     ignoreDuringBuilds: true,
   },
-});
+};

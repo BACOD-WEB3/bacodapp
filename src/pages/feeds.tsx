@@ -3,76 +3,17 @@ import CreatePost from '@/components/Post/CreatePost';
 import PostItem from '@/components/Post/PostItem';
 import Search from '@/components/Search';
 import Trends from '@/components/Trends';
+import usePostFeed, { useLoadFeed } from '@/hooks/useLoadFeed';
 import Head from 'next/head';
 import Image from 'next/image';
+import { useContractRead } from 'wagmi';
 
-const MOCK_Post = [
-  {
-    id: 1,
-    title: `And we finalized!
-
-    Happy merge all. This is a big moment for the Ethereum ecosystem. Everyone who helped make the merge happen should feel very proud today.`,
-    date: '5h ago',
-    commentCount: 5,
-    shareCount: 2,
-  },
-  {
-    id: 2,
-    title: "So you've bought coffee... now what?",
-    date: '2h ago',
-    commentCount: 3,
-    shareCount: 2,
-  },
-  {
-    id: 3,
-    title: `And we finalized!
-
-    Happy merge all. This is a big moment for the Ethereum ecosystem. Everyone who helped make the merge happen should feel very proud today.`,
-    date: '5h ago',
-    commentCount: 5,
-    shareCount: 2,
-  },
-  {
-    id: 4,
-    title: "So you've bought coffee... now what?",
-    date: '2h ago',
-    commentCount: 3,
-    shareCount: 2,
-  },
-  {
-    id: 3,
-    title: `And we finalized!
-
-    Happy merge all. This is a big moment for the Ethereum ecosystem. Everyone who helped make the merge happen should feel very proud today.`,
-    date: '5h ago',
-    commentCount: 5,
-    shareCount: 2,
-  },
-  {
-    id: 4,
-    title: "So you've bought coffee... now what?",
-    date: '2h ago',
-    commentCount: 3,
-    shareCount: 2,
-  },
-  {
-    id: 3,
-    title: `And we finalized!
-
-    Happy merge all. This is a big moment for the Ethereum ecosystem. Everyone who helped make the merge happen should feel very proud today.`,
-    date: '5h ago',
-    commentCount: 5,
-    shareCount: 2,
-  },
-  {
-    id: 4,
-    title: "So you've bought coffee... now what?",
-    date: '2h ago',
-    commentCount: 3,
-    shareCount: 2,
-  },
-];
 export default function Feeds() {
+  const { all_feeds } = useLoadFeed();
+  const { loading } = usePostFeed();
+
+  // useContractRead()
+
   return (
     <Layout
       rightMenu={
@@ -85,8 +26,16 @@ export default function Feeds() {
     >
       <div className='px-2'>
         <CreatePost />
+
         <br />
-        {MOCK_Post.map((post, i) => (
+        <div className='text-[11px] text-red-500'>
+          *Load speed is currently slow, improving on 2nd phase as this feature
+          isn't priority for 1st phase
+        </div>
+
+        <br />
+        {!!loading && <div>Loading...</div>}
+        {all_feeds.map((post, i) => (
           <PostItem key={post.id} {...{ post, index: i }} />
         ))}
       </div>

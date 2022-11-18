@@ -1,6 +1,12 @@
 import Button from '@/components/Button';
 import Layout from '@/components/Layout';
 import useSteps from '@/hooks/useSteps';
+import {
+  ClipboardDocumentCheckIcon,
+  ClipboardDocumentListIcon,
+  CubeTransparentIcon,
+  QrCodeIcon,
+} from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 
 const IconStep1 = () => (
@@ -20,6 +26,11 @@ const IconStep1 = () => (
   </svg>
 );
 
+const ICON = [
+  <ClipboardDocumentListIcon key={1} className='mr-4 h-7 w-7 text-blue-500' />,
+  <QrCodeIcon key={12} className='mr-4 h-7 w-7 text-purple-500' />,
+  <CubeTransparentIcon key={13} className='mr-4 h-7 w-7 text-orange-500' />,
+];
 const OPTIONS = [
   {
     text: 'I am whitelisted',
@@ -48,7 +59,10 @@ const Step1 = () => {
           <div className='mb-8 space-y-3'>
             {OPTIONS.map((_, i) => {
               return (
-                <label key={i} className='relative block cursor-pointer '>
+                <label
+                  key={i}
+                  className='relative block cursor-pointer hover:bg-bg_third '
+                >
                   <input
                     onClick={() => {
                       setStep(2);
@@ -59,7 +73,7 @@ const Step1 = () => {
                     className='peer sr-only'
                   />
                   <div className='text-brand-dark hover:border-brand-primary flex items-center rounded border border-gray-300  p-4 text-sm font-medium shadow-sm duration-150 ease-in-out hover:border-2'>
-                    <IconStep1 />
+                    {ICON[i]}
                     <span>{_?.text}</span>
                   </div>
                   <div

@@ -14,6 +14,10 @@ import {
   EllipsisVerticalIcon,
 } from '@heroicons/react/24/outline';
 import { useRouter } from 'next/router';
+import useProfile from '@/hooks/useProfile';
+import useWallet from '@/hooks/useWallet';
+import { checkValidImgUrl } from '@/pages/profile';
+import { useAccount } from 'wagmi';
 
 type TLayout = {
   rightMenu?: any;
@@ -33,8 +37,8 @@ function Layout({
   // leftMenu
   // rightMenu
   return (
-    <div className='absolute z-10  flex h-full w-full flex-col justify-center  '>
-      <Navbar />
+    <div className='absolute z-10  flex h-full w-full flex-col  px-2 '>
+      <Navbar {...{ isFixed: !sideBar }} />
       {fullMode && (
         <div className='grid h-[93vh] w-full max-w-screen-xl grid-cols-9 self-center  '>
           <div className='col-span-2 '>
@@ -63,7 +67,7 @@ function Layout({
         </div>
       )}
       {!sideBar && !fullMode && (
-        <div className='h-full w-full max-w-screen-xl self-center border backdrop-blur-md  '>
+        <div className='h-full w-full max-w-screen-xl self-center  backdrop-blur-md  '>
           {children}
         </div>
       )}
@@ -102,14 +106,21 @@ const LeftMenu = () => {
 };
 
 const SelfProfileBtn = () => {
+  const { profile_cache } = useProfile();
+  const { address } = useAccount();
   return (
     <Link href={`/profile`}>
       <div className='flex align-middle'>
-        <div className='col-span-2 h-16 w-16 overflow-hidden rounded-full bg-gray-100' />
+        <div className='col-span-2 h-16 w-16 overflow-hidden rounded-full border bg-gray-100'>
+          {profile_cache && checkValidImgUrl(profile_cache?.image) ? (
+            <img src={profile_cache?.image} alt='' className='h-full w-full' />
+          ) : (
+            <div />
+          )}
+        </div>
         <div className='ml-4 hidden flex-col justify-center md:flex'>
-          NAME HERE
-          <br />
-          0xAcc
+          <b>{profile_cache?.username ?? '-'}</b>
+          {`${address?.substring(0, 6)}...` ?? '-'}
         </div>
       </div>
     </Link>

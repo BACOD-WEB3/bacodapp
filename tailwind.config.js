@@ -8,6 +8,7 @@ module.exports = {
       colors: {
         bg_secondary: '#151B2D',
         bg_third: '#20293A',
+        bg_primary: '#111729',
       },
     },
   },

@@ -1,50 +1,45 @@
 import { useState } from 'react';
 import { Tab } from '@headlessui/react';
 import PostItem from '../Post/PostItem';
+import useProfile from '@/hooks/useProfile';
+import { useLoadFeed } from '@/hooks/useLoadFeed';
 
 export function classNames(...classes) {
   return classes.filter(Boolean).join(' ');
 }
 
 export default function TabProfile() {
-  let [categories] = useState({
+  const { profile_cache } = useProfile();
+
+  const { self_feeds, loading } = useLoadFeed();
+
+  const categories = {
     Post: [
       {
         id: 1,
-        title: `And we finalized!
-
-        Happy merge all. This is a big moment for the Ethereum ecosystem. Everyone who helped make the merge happen should feel very proud today.`,
-        date: '5h ago',
+        username: profile_cache?.username,
+        image: profile_cache?.profileImage,
+        title: `Hey, I'm the future you!
+        Can't believe I'm the beta tester of this amazing dapp. Hmmmph, but this is not my first post, so what should i write?  `,
+        date: '5y later',
         commentCount: 5,
         shareCount: 2,
+        future: true, // just markethings
       },
       {
         id: 2,
-        title: "So you've bought coffee... now what?",
-        date: '2h ago',
-        commentCount: 3,
-        shareCount: 2,
+        username: profile_cache?.username,
+        image: profile_cache?.image,
+        title: `also don't forget to buy bitcoin and stick to this app, trust me I'm from the future, :wink :wink`,
+        commentCount: 999,
+        shareCount: 200,
+        future: true, // just markethings
       },
-      {
-        id: 3,
-        title: `And we finalized!
-
-        Happy merge all. This is a big moment for the Ethereum ecosystem. Everyone who helped make the merge happen should feel very proud today.`,
-        date: '5h ago',
-        commentCount: 5,
-        shareCount: 2,
-      },
-      {
-        id: 4,
-        title: "So you've bought coffee... now what?",
-        date: '2h ago',
-        commentCount: 3,
-        shareCount: 2,
-      },
+      ...self_feeds,
     ],
     Collected: [],
     Likes: [],
-  });
+  };
 
   return (
     <div className='w-full '>
@@ -77,6 +72,8 @@ export default function TabProfile() {
                 'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
               )}
             >
+              {loading && <div>Loading...</div>}
+
               <ul>
                 {posts.map((post, i) => (
                   <PostItem key={post.id} {...{ post, index: i }} />
