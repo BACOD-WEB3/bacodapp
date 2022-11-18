@@ -52,6 +52,11 @@ export default function Distribution({ isGraph = true }) {
       {isGraph && (
         <Button onClick={() => setFullMode(true)}>Full Mode Graph</Button>
       )}
+      <br />
+      <br />
+      <div className='text-green-500'>
+        Your network is color: GREEN (or colorful)
+      </div>
     </div>
   );
 }

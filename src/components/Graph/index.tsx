@@ -1,3 +1,4 @@
+import usePosition, { useZustandPostion } from '@/hooks/usePosition';
 import axios from 'axios';
 import dynamic from 'next/dynamic';
 import { useEffect, useRef, useState } from 'react';
@@ -13,14 +14,22 @@ const distance = 1400;
 
 const CameraOrbit = ({ data }) => {
   // const fgRef = useRef();
+  const { nodes, links } = useZustandPostion();
+
+  const x_data = {
+    nodes: [...nodes, ...data?.nodes],
+    links: [...links, ...data?.links],
+  };
 
   return (
     <ReactForceGraph3d
       // ref={fgRef}
-      graphData={data}
-      linkDirectionalParticleColor={() => 'red'}
+      graphData={x_data}
+      linkDirectionalParticleColor={() => 'blue'}
       linkDirectionalParticleWidth={6}
       linkHoverPrecision={10}
+      nodeAutoColorBy='group'
+      // .nodeAutoColorBy('group')
       // onLinkClick={(link) => fgRef.current.emitParticle(link)}
     />
   );

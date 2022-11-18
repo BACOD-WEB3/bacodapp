@@ -10,7 +10,7 @@ export default function usePosition() {
   const [loading, setLoading] = useState(false);
   const { contract } = useContractX('profile');
   const { address } = useAccount();
-  const { setChildx, setLevel } = useZustandPostion();
+  const { setChildx, setLevel, setGraph } = useZustandPostion();
 
   const { data, isError, isLoading } = useContractRead({
     address: CONTRACTS_SETUP['profile'].address,
@@ -28,23 +28,48 @@ export default function usePosition() {
     // level3
     let level2 = 0;
     let level3 = 0;
+    const COLOR_NUMBER = 5;
+    const nodes = [{ id: address, group: COLOR_NUMBER }];
+    const links = [
+      // { id: address, group: 4 }
+    ];
 
     for (let i = 0; i < arr?.length; i++) {
+      nodes.push({ id: arr[i], group: COLOR_NUMBER });
+      links.push({
+        source: arr[i],
+        target: address,
+        value: 1,
+      });
+
       const resI = await contract?.getChilds(arr[i]);
       level2 += resI?.length;
-
+      //
       for (let j = 0; j < resI?.length; j++) {
         const resJ = await contract?.getChilds(resI[j]);
         level3 += resJ?.length;
 
-        // for (let k = 0; k < resJ?.length; k++) {
-        //   const resk = await contract?.getChilds(resJ[k]);
-        //   console.log(resk, '`3', resJ[k]);
-        // }
-        // const res = await contract?.getChilds(resI[j]);
+        nodes.push({ id: resI[j], group: COLOR_NUMBER });
+        links.push({
+          target: arr[i],
+          source: resI[j],
+          value: 1,
+        });
+        //
+        for (let k = 0; k < resJ?.length; k++) {
+          // const resK = await contract?.getChilds(resJ[k]);
+
+          nodes.push({ id: resJ[k], group: COLOR_NUMBER });
+          links.push({
+            target: resI[j],
+            source: resJ[k],
+            value: 1,
+          });
+        }
       }
     }
     setLevel([arr?.length, level2, level3]);
+    setGraph(nodes, links);
   };
   useEffect(() => {
     if (!!address && !isError && data) {
@@ -64,6 +89,11 @@ export const useZustandPostion = create((set, get) => {
   return {
     childx: [],
     levels: [],
+    nodes: [],
+    links: [],
+    setGraph: async (res, x) => {
+      set({ nodes: res, links: x });
+    },
     setChildx: async (res: string) => {
       set({ child: res });
     },
