@@ -54,9 +54,11 @@ export default function Distribution({ isGraph = true }) {
       )}
       <br />
       <br />
-      <div className='text-green-500'>
-        Your network is color: GREEN (or colorful)
-      </div>
+      {isGraph && (
+        <div className='text-green-500'>
+          Your network is color: GREEN (or colorful)
+        </div>
+      )}
     </div>
   );
 }
